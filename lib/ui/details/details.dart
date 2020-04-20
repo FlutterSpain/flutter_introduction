@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_introduction/core/models/character.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -10,34 +11,40 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(character.name),
+        title: Text(character == null ? '' : character.name),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Image(
-              image: NetworkImage(character.image),
-              height: 300,
-              fit: BoxFit.cover,
-              width: double.infinity,
+      body: character == null
+          ? Center(
+              child: Text(
+                'Select a character',
+              ),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Image(
+                    image: NetworkImage(character.image),
+                    height: 300,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  _getTitle(context, 'Name'),
+                  _getText(context, character.name),
+                  _getTitle(context, 'Status'),
+                  _getText(context, character.status),
+                  _getTitle(context, 'Species'),
+                  _getText(context, character.species),
+                  _getTitle(context, 'Gender'),
+                  _getText(context, character.gender),
+                  _getTitle(context, 'Origin'),
+                  _getText(context, character.location.name),
+                ],
+              ),
             ),
-            SizedBox(
-              height: 8.0,
-            ),
-            _getTitle(context, 'Name'),
-            _getText(context, character.name),
-            _getTitle(context, 'Status'),
-            _getText(context, character.status),
-            _getTitle(context, 'Species'),
-            _getText(context, character.species),
-            _getTitle(context, 'Gender'),
-            _getText(context, character.gender),
-            _getTitle(context, 'Origin'),
-            _getText(context, character.location.name),
-          ],
-        ),
-      ),
     );
   }
 
